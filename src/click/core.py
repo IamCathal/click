@@ -1934,6 +1934,9 @@ class Option(Parameter):
                 default_string = "(dynamic)"
             else:
                 default_string = self.default
+                if isinstance(self.type, IntRange):
+                    if self.type.min is not None and self.type.max is not None:
+                        default_string = f"{self.type.min}-{self.type.max} inclusive"
             extra.append(f"default: {default_string}")
 
         if self.required:
