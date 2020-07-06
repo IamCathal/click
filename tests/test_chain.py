@@ -88,6 +88,23 @@ def test_chaining_with_options(runner):
     assert result.output.splitlines() == ["bdist called 1", "sdist called 2"]
 
 
+def test_resultcallback(runner):
+    @click.group(invoke_without_command=True)
+    def cli():
+        pass
+
+    @cli.command()
+    def sub():
+        return "Sub"
+
+    @cli.resultcallback()
+    def process_result(result):
+        print("Subcommands invoked:", result)
+
+    result = runner.invoke(cli, [])
+    assert result.output == "Subcommands invoked: []\n"
+
+
 def test_chaining_with_arguments(runner):
     @click.group(chain=True)
     def cli():

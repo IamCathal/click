@@ -1170,7 +1170,7 @@ class MultiCommand(Command):
         self.format_commands(ctx, formatter)
 
     def resultcallback(self, replace=False):
-        """Adds a result callback to the chain command.  By default if a
+        """Adds a result callback to the command.  By default if a
         result callback is already registered this will chain them but
         this can be disabled with the `replace` parameter.  The result
         callback is invoked with the return value of the subcommand
@@ -1258,15 +1258,10 @@ class MultiCommand(Command):
             return value
 
         if not ctx.protected_args:
-            # If we are invoked without command the chain flag controls
-            # how this happens.  If we are not in chain mode, the return
-            # value here is the return value of the command.
-            # If however we are in chain mode, the return value is the
-            # return value of the result processor invoked with an empty
-            # list (which means that no subcommand actually was executed).
+            # The return value is the return value of the result processor
+            # invoked with an empty list (which means that no subcommand
+            # actually was executed).
             if self.invoke_without_command:
-                if not self.chain:
-                    return Command.invoke(self, ctx)
                 with ctx:
                     Command.invoke(self, ctx)
                     return _process_result([])
@@ -1346,7 +1341,7 @@ class MultiCommand(Command):
                 self.parse_args(ctx, ctx.args)
             ctx.fail(f"No such command '{original_cmd_name}'.")
 
-        return cmd.name, cmd, args[1:]
+        return cmd_name, cmd, args[1:]
 
     def get_command(self, ctx, cmd_name):
         """Given a context and a command name, this returns a
@@ -1840,11 +1835,6 @@ class Option(Parameter):
                     second = second.lstrip()
                     if second:
                         secondary_opts.append(second.lstrip())
-                    if first == second:
-                        raise ValueError(
-                            f"Boolean option {decl!r} cannot use the"
-                            " same flag for true/false."
-                        )
                 else:
                     possible_names.append(split_opt(decl))
                     opts.append(decl)
@@ -1943,10 +1933,6 @@ class Option(Parameter):
                     if self.type.min is not None and self.type.max is not None:
                         default_string = f"{self.type.min}-{self.type.max} inclusive"
             extra.append(f"default: {default_string}")
-
-        if isinstance(self.type, IntRange):
-            if self.type.min is not None and self.type.max is not None:
-                extra.append(f"{self.type.min}-{self.type.max} inclusive")
 
         if self.required:
             extra.append("required")
