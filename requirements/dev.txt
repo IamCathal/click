@@ -19,6 +19,7 @@ filelock==3.0.12          # via tox, virtualenv
 identify==1.4.16          # via pre-commit
 idna==2.9                 # via requests
 imagesize==1.2.0          # via sphinx
+importlib-metadata==1.7.0  # via -r requirements/tests.in
 jinja2==2.11.2            # via sphinx
 markupsafe==1.1.1         # via jinja2
 more-itertools==8.3.0     # via pytest
@@ -27,7 +28,7 @@ packaging==20.4           # via pallets-sphinx-themes, pytest, sphinx, tox
 pallets-sphinx-themes==1.2.3  # via -r requirements/docs.in
 pip-tools==5.2.1          # via -r requirements/dev.in
 pluggy==0.13.1            # via pytest, tox
-pre-commit==2.5.1         # via -r requirements/dev.in
+pre-commit==2.6.0         # via -r requirements/dev.in
 py==1.8.1                 # via pytest, tox
 pygments==2.6.1           # via sphinx
 pyparsing==2.4.7          # via packaging
@@ -38,7 +39,7 @@ requests==2.23.0          # via sphinx
 six==1.15.0               # via packaging, pip-tools, tox, virtualenv
 snowballstemmer==2.0.0    # via sphinx
 sphinx-issues==1.2.0      # via -r requirements/docs.in
-sphinx==3.1.0             # via -r requirements/docs.in, pallets-sphinx-themes, sphinx-issues, sphinxcontrib-log-cabinet
+sphinx==3.1.2             # via -r requirements/docs.in, pallets-sphinx-themes, sphinx-issues, sphinxcontrib-log-cabinet
 sphinxcontrib-applehelp==1.0.2  # via sphinx
 sphinxcontrib-devhelp==1.0.2  # via sphinx
 sphinxcontrib-htmlhelp==1.0.3  # via sphinx
@@ -47,10 +48,11 @@ sphinxcontrib-log-cabinet==1.0.1  # via -r requirements/docs.in
 sphinxcontrib-qthelp==1.0.3  # via sphinx
 sphinxcontrib-serializinghtml==1.1.4  # via sphinx
 toml==0.10.1              # via pre-commit, tox
-tox==3.15.2               # via -r requirements/dev.in
+tox==3.16.1               # via -r requirements/dev.in
 urllib3==1.25.9           # via requests
 virtualenv==20.0.21       # via pre-commit, tox
 wcwidth==0.1.9            # via pytest
+zipp==3.1.0               # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

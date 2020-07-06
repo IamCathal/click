@@ -1346,7 +1346,7 @@ class MultiCommand(Command):
                 self.parse_args(ctx, ctx.args)
             ctx.fail(f"No such command '{original_cmd_name}'.")
 
-        return cmd_name, cmd, args[1:]
+        return cmd.name, cmd, args[1:]
 
     def get_command(self, ctx, cmd_name):
         """Given a context and a command name, this returns a
@@ -1840,6 +1840,11 @@ class Option(Parameter):
                     second = second.lstrip()
                     if second:
                         secondary_opts.append(second.lstrip())
+                    if first == second:
+                        raise ValueError(
+                            f"Boolean option {decl!r} cannot use the"
+                            " same flag for true/false."
+                        )
                 else:
                     possible_names.append(split_opt(decl))
                     opts.append(decl)
@@ -1938,6 +1943,10 @@ class Option(Parameter):
                     if self.type.min is not None and self.type.max is not None:
                         default_string = f"{self.type.min}-{self.type.max} inclusive"
             extra.append(f"default: {default_string}")
+
+        if isinstance(self.type, IntRange):
+            if self.type.min is not None and self.type.max is not None:
+                extra.append(f"{self.type.min}-{self.type.max} inclusive")
 
         if self.required:
             extra.append("required")

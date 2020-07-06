@@ -218,12 +218,7 @@ def test_dynamic_default_help_text(runner):
 
 def test_intrange_default_help_text(runner):
     @click.command()
-    @click.option(
-        "--count",
-        type=click.IntRange(1,32),
-        show_default=True,
-        default=1
-        )
+    @click.option("--count", type=click.IntRange(1, 32), show_default=True, default=1)
     def cmd(arg):
         click.echo(arg)
 
@@ -570,3 +565,8 @@ def test_option_names(runner, option_args, expected):
         if form.startswith("-"):
             result = runner.invoke(cmd, [form])
             assert result.output == "True\n"
+
+
+def test_flag_duplicate_names(runner):
+    with pytest.raises(ValueError, match="cannot use the same flag for true/false"):
+        click.Option(["--foo/--foo"], default=False)

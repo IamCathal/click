@@ -13,6 +13,21 @@ Unreleased
 -   Add an optional parameter to ``ProgressBar.update`` to set the
     ``current_item``. :issue:`1226`, :pr:`1332`
 -   Include ``--help`` option in completion. :pr:`1504`
+-   ``version_option`` uses ``importlib.metadata`` (or the
+    ``importlib_metadata`` backport) instead of ``pkg_resources``.
+    :issue:`1582`
+-   If validation fails for a prompt with ``hide_input=True``, the value
+    is not shown in the error message. :issue:`1460`
+-   An ``IntRange`` option shows the accepted range in its help text.
+    :issue:`1525`
+-   An option defined with duplicate flag names (``"--foo/--foo"``)
+    raises a ``ValueError``. :issue:`1465`
+-   ``echo()`` will not fail when using pytest's ``capsys`` fixture on
+    Windows. :issue:`1590`
+-   Resolving commands returns the canonical command name instead of the
+    matched name. This makes behavior such as help text and
+    ``Context.invoked_subcommand`` consistent when using patterns like
+    ``AliasedGroup``. :issue:`1422`
 
 
 Version 7.1.2
